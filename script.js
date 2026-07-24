@@ -1,142 +1,95 @@
-// ======================================
-// LM Picture v1.0
-// script.js
-// ======================================
-
-// ===============================
+// ================================
 // MENU HAMBURGER
-// ===============================
+// ================================
 
 const menuToggle = document.getElementById("menu-toggle");
-const navbar = document.getElementById("navbar");
+const nav = document.getElementById("nav");
 
-if (menuToggle && navbar) {
-
-    menuToggle.addEventListener("click", () => {
-
-        navbar.classList.toggle("active");
-
-    });
-
-}
-
-
-// ===============================
-// TUTUP MENU SAAT LINK DIKLIK
-// ===============================
-
-const navLinks = document.querySelectorAll("nav a");
-
-navLinks.forEach(link => {
-
-    link.addEventListener("click", () => {
-
-        navbar.classList.remove("active");
-
-    });
-
+menuToggle.addEventListener("click", () => {
+    nav.classList.toggle("active");
 });
 
+// ================================
+// TUTUP MENU SETELAH KLIK LINK
+// ================================
 
-// ===============================
+document.querySelectorAll("nav a").forEach(link => {
+    link.addEventListener("click", () => {
+        nav.classList.remove("active");
+    });
+});
+
+// ================================
 // TOMBOL EXPLORE GALLERY
-// ===============================
+// ================================
 
 const exploreBtn = document.getElementById("explore");
 
-if (exploreBtn) {
-
-    exploreBtn.addEventListener("click", () => {
-
-        document.getElementById("gallery").scrollIntoView({
-
-            behavior: "smooth"
-
-        });
-
+exploreBtn.addEventListener("click", () => {
+    document.getElementById("gallery").scrollIntoView({
+        behavior: "smooth"
     });
+});
 
-}
-
-
-// ===============================
+// ================================
 // ANIMASI SCROLL
-// ===============================
+// ================================
 
 const sections = document.querySelectorAll("section");
 
-const observer = new IntersectionObserver(
+const observer = new IntersectionObserver((entries) => {
 
-(entries)=>{
+    entries.forEach(entry => {
 
-    entries.forEach(entry=>{
-
-        if(entry.isIntersecting){
-
+        if (entry.isIntersecting) {
             entry.target.classList.add("show");
-
         }
 
     });
 
-},
+}, {
+    threshold: 0.2
+});
 
-{
-
-    threshold:0.2
-
-}
-
-);
-
-sections.forEach(section=>{
-
+sections.forEach(section => {
     section.classList.add("fade");
-
     observer.observe(section);
+});
+
+// ================================
+// FORM CONTACT
+// ================================
+
+const form = document.querySelector("form");
+
+form.addEventListener("submit", function (e) {
+
+    e.preventDefault();
+
+    alert("Terima kasih. Pesan Anda berhasil dikirim.");
+
+    form.reset();
 
 });
 
+// ================================
+// HEADER SAAT SCROLL
+// ================================
 
-// ===============================
-// HEADER EFFECT
-// ===============================
+const header = document.querySelector("header");
 
-window.addEventListener("scroll",()=>{
+window.addEventListener("scroll", () => {
 
-    const header = document.querySelector("header");
+    if (window.scrollY > 80) {
 
-    if(window.scrollY>50){
+        header.style.background = "rgba(0,0,0,.95)";
+        header.style.boxShadow = "0 5px 20px rgba(0,0,0,.35)";
 
-        header.style.background="rgba(0,0,0,.85)";
+    } else {
+
+        header.style.background = "rgba(0,0,0,.75)";
+        header.style.boxShadow = "none";
 
     }
 
-    else{
-
-        header.style.background="rgba(0,0,0,.55)";
-
-    }
-
 });
-
-
-// ===============================
-// CONTACT FORM
-// ===============================
-
-const contactForm = document.getElementById("contact-form");
-
-if(contactForm){
-
-contactForm.addEventListener("submit",(e)=>{
-
-e.preventDefault();
-
-alert("Terima kasih 😊\n\nPesan Anda telah berhasil dikirim.\nLM Picture akan segera menghubungi Anda.");
-
-contactForm.reset();
-
-});
-
-}
